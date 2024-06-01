@@ -1,0 +1,10 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 16px;
+}
+
+.btn-primary:disabled {
+    background-color: lightgray;
+    border-color: lightgray;
+}
