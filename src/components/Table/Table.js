@@ -36,6 +36,10 @@ const Table = () => {
         fetchAllPeople();
     }, []);
 
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery]);
+
     const filteredData = data.filter(person =>
         person.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
