@@ -22,7 +22,7 @@ const Table = () => {
                     const response = await fetch(nextPage);
                     const result = await response.json();
                     allPeople = allPeople.concat(result.results);
-                    nextPage = result.next; // URL for the next page of results, or null if no more pages
+                    nextPage = result.next;
                 }
 
                 setData(allPeople);
@@ -36,12 +36,10 @@ const Table = () => {
         fetchAllPeople();
     }, []);
 
-    // Filter data based on search query
     const filteredData = data.filter(person =>
         person.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
-    // Calculate the data to be displayed on the current page
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
