@@ -1,20 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import Loader from '../Loader/Loader'
 
 const Table = () => {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         fetch('https://swapi.dev/api/people')
             .then((response) => response.json())
             .then((data) => {
                 setData(data.results);
-                setLoading(false);
             })
     }, []);
-
-    if (loading) return <Loader />;
 
     return (
         <table className="data-table">
