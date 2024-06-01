@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table as BootstrapTable, Pagination, Container, Row, Col } from 'react-bootstrap';
+import { Table as BootstrapTable, Pagination, FormControl, Container, Row, Col } from 'react-bootstrap';
 import styles from './Table.module.css';
 import Loader from '../Loader/Loader';
 import Person from '../Person/Person';
@@ -9,6 +9,7 @@ const Table = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
     const itemsPerPage = 10;
 
     useEffect(() => {
@@ -35,12 +36,17 @@ const Table = () => {
         fetchAllPeople();
     }, []);
 
+    // Filter data based on search query
+    const filteredData = data.filter(person =>
+        person.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     // Calculate the data to be displayed on the current page
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
-    const totalPages = Math.ceil(data.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -54,6 +60,16 @@ const Table = () => {
                     <Row className="justify-content-center">
                         <Col xs={12} md={11} lg={10}>
                             <h1 className="text-center mb-4">Star Wars Characters</h1>
+                            <Row className="justify-content-center mb-4">
+                                <Col xs={12} md={6}>
+                                    <FormControl
+                                        type="text"
+                                        placeholder="Search by name"
+                                        value={searchQuery}
+                                        onChange={e => setSearchQuery(e.target.value)}
+                                    />
+                                </Col>
+                            </Row>
                             <BootstrapTable striped bordered hover>
                                 <thead>
                                     <tr>
