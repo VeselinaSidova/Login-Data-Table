@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Form, FormGroup, FormControl, Button, Container, Row, Col, Card } from 'react-bootstrap';
+import { useAuth } from '../../contexts/AuthContext';
 import styles from './Login.module.css';
 
 const Login = () => {
-    const navigate = useNavigate();
+    const { login } = useAuth();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -17,7 +17,7 @@ const Login = () => {
             return;
         }
         setError('');
-        navigate('/table');
+        login({ username });
     };
 
     const handleBlur = (field) => (e) => {
