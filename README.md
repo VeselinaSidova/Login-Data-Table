@@ -22,7 +22,7 @@ This project is a simple React-based application that displays a list of Star Wa
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-username/login-data-table.git
+   git clone https://github.com/your-username/star-wars-characters-app.git
 2. Navigate to the project directory:
    ```bash
    cd login-data-table
