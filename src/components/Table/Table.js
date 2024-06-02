@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table as BootstrapTable, Pagination, FormControl, Container, Row, Col } from 'react-bootstrap';
+import { Table as BootstrapTable, Pagination, FormControl, Container, Row, Col, Alert } from 'react-bootstrap';
 import styles from './Table.module.css';
 import Loader from '../Loader/Loader';
 import Person from '../Person/Person';
@@ -20,6 +20,9 @@ const Table = () => {
 
                 while (nextPage) {
                     const response = await fetch(nextPage);
+                    if (!response.ok) {
+                        throw new Error('An error occured!');
+                    }
                     const result = await response.json();
                     allPeople = allPeople.concat(result.results);
                     nextPage = result.next;
@@ -57,6 +60,12 @@ const Table = () => {
     return (
         <div>
             {loading && <Loader />}
+            {error && (
+                <Alert variant="danger"
+                    className="text-center">
+                    An error occured: {error.message}
+                </Alert>
+            )}
             <div className={loading ? styles.blur : ''}>
                 <Container className="mt-5">
                     <Row className="justify-content-center">
@@ -95,9 +104,9 @@ const Table = () => {
                                         active={index + 1 === currentPage}
                                         onClick={() => handlePageChange(index + 1)}
                                         linkStyle={{
-                                            backgroundColor: index + 1 === currentPage ? '#0A3E93' : 'transparent',
+                                            backgroundColor: index + 1 === currentPage ? '#0A3E93' : '',
                                             color: index + 1 === currentPage ? 'white' : '#0A3E93',
-                                            borderColor: index + 1 === currentPage ? '#0A3E93' : '#DEE2E6',
+                                            borderColor: index + 1 === currentPage ? '#0A3E93' : '',
                                         }}
                                     >
                                         {index + 1}
@@ -108,7 +117,7 @@ const Table = () => {
                     </Row>
                 </Container>
             </div>
-        </div >
+        </div>
     );
 };
 
