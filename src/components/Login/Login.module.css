@@ -4,7 +4,11 @@
     margin-top: 16px;
 }
 
+.btn-primary{
+    background-color: #4158D9;
+}
+
 .btn-primary:disabled {
-    background-color: lightgray;
-    border-color: lightgray;
+    background-color: #84B3DC;
+    border-color: #84B3DC;
 }
