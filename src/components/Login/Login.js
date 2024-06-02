@@ -50,7 +50,7 @@ const Login = () => {
                                         onFocus={() => setTouched({ ...touched, username: true })}
                                     />
                                 </FormGroup>
-                                <FormGroup>
+                                <FormGroup className='mt-2'>
                                     <Form.Label htmlFor="password">Password</Form.Label>
                                     <FormControl
                                         type="password"
