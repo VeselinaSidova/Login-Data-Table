@@ -124,6 +124,7 @@ const DataView = () => {
                                         placeholder="Search"
                                         value={searchQuery}
                                         onChange={e => setSearchQuery(e.target.value)}
+                                        className={styles['search-bar']}
                                     />
                                 </Col>
                             </Row>

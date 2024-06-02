@@ -16,6 +16,14 @@
     z-index: 1000;
 }
 
+.header-primary{
+    color: #0A3E93;
+}
+
+.search-bar{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .reset-button, .logout-button{
     background-color: #D8232A;
     border: #D8232A;
@@ -25,8 +33,4 @@
 .reset-button:hover, .logout-button:hover{
     background-color: #F72A2E;
     border: #F72A2E;
-}
-
-.header-primary{
-    color: #0A3E93;
 }
