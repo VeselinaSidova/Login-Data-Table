@@ -38,7 +38,10 @@ const Login = () => {
                             <h3 className="text-center mb-4">Login</h3>
                             <Form onSubmit={handleLogin}>
                                 <FormGroup>
-                                    <Form.Label htmlFor="username">Username</Form.Label>
+                                    <div className={styles['label-container']}>
+                                        <Form.Label htmlFor="username" className={styles['label']}><span className={styles['asterisk']}>* </span>Username</Form.Label>
+                                        <p className="text-muted ms-2"><span className={styles['asterisk']}>* </span>Required fields</p>
+                                    </div>
                                     <FormControl
                                         type="text"
                                         className={`form-control ${touched.username && !username ? 'is-invalid' : ''}`}
@@ -51,7 +54,7 @@ const Login = () => {
                                     />
                                 </FormGroup>
                                 <FormGroup className='mt-2'>
-                                    <Form.Label htmlFor="password">Password</Form.Label>
+                                    <Form.Label htmlFor="password" className={styles['label']}><span className={styles['asterisk']}>* </span>Password</Form.Label>
                                     <FormControl
                                         type="password"
                                         className={`form-control ${touched.password && !password ? 'is-invalid' : ''}`}

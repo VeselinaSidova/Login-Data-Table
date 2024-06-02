@@ -12,3 +12,18 @@
     background-color: #84B3DC;
     border-color: #84B3DC;
 }
+
+.asterisk {
+    color: #D8232A;
+    font-weight: bold;
+}
+
+.label {
+font-weight: 700;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
