@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Table as BootstrapTable, Pagination, FormControl, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Table as BootstrapTable, Pagination, FormControl, Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import styles from './Table.module.css';
 import Loader from '../Loader/Loader';
 import Person from '../Person/Person';
 
 const Table = () => {
     const [data, setData] = useState([]);
+    const [originalData, setOriginalData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState('');
+    const [sortDirection, setSortDirection] = useState({ key: '', direction: 'asc' });
     const itemsPerPage = 10;
 
     useEffect(() => {
@@ -29,6 +31,7 @@ const Table = () => {
                 }
 
                 setData(allPeople);
+                setOriginalData(allPeople); // Store original data
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -42,6 +45,34 @@ const Table = () => {
     useEffect(() => {
         setCurrentPage(1);
     }, [searchQuery]);
+
+    const handleSort = (key) => {
+        const sortedData = [...data].sort((a, b) => {
+            if (key === 'mass' || key === 'height') {
+                let aValue = a[key] === 'unknown' ? Number.MIN_SAFE_INTEGER : Number(a[key].replace(/,/g, ''));
+                let bValue = b[key] === 'unknown' ? Number.MIN_SAFE_INTEGER : Number(b[key].replace(/,/g, ''));
+                if (sortDirection.direction === 'desc') {
+                    aValue = a[key] === 'unknown' ? Number.MAX_SAFE_INTEGER : Number(a[key].replace(/,/g, ''));
+                    bValue = b[key] === 'unknown' ? Number.MAX_SAFE_INTEGER : Number(b[key].replace(/,/g, ''));
+                }
+                return sortDirection.direction === 'desc' ? aValue - bValue : bValue - aValue;
+            } else {
+                if (a[key] < b[key]) return sortDirection.direction === 'asc' ? -1 : 1;
+                if (a[key] > b[key]) return sortDirection.direction === 'asc' ? 1 : -1;
+                return 0;
+            }
+        });
+        setData(sortedData);
+        setSortDirection({ key, direction: sortDirection.direction === 'asc' ? 'desc' : 'asc' });
+        setCurrentPage(1);
+    };
+
+    const handleReset = () => {
+        setData(originalData);
+        setSearchQuery('');
+        setSortDirection({ key: '', direction: 'asc' });
+        setCurrentPage(1);
+    };
 
     const filteredData = data.filter(person =>
         person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,7 +104,7 @@ const Table = () => {
                 <Container className="mt-5">
                     <Row className="justify-content-center">
                         <Col xs={12} md={11} lg={10}>
-                            <h1 className="text-center mb-4">Star Wars Characters</h1>
+                            <h1 className={`text-center mb-4 ${styles['header-primary']}`}>Star Wars Characters</h1>
                             <Row className="justify-content-center mb-4">
                                 <Col xs={12} md={6}>
                                     <FormControl
@@ -84,14 +115,35 @@ const Table = () => {
                                     />
                                 </Col>
                             </Row>
+                            <Row className="justify-content-center mb-4">
+                                <Col xs={12} md={6} className="text-center">
+                                    {(searchQuery || sortDirection.key) && (
+                                        <Button
+                                            variant="secondary"
+                                            onClick={handleReset}
+                                            className={styles['reset-button']}>Reset Table
+                                        </Button>
+                                    )}
+                                </Col>
+                            </Row>
                             <BootstrapTable striped bordered hover>
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Mass</th>
-                                        <th>Height</th>
-                                        <th>Hair Color</th>
-                                        <th>Skin Color</th>
+                                        <th onClick={() => handleSort('name')} style={{ cursor: 'pointer' }}>
+                                            Name {sortDirection.key === 'name' && (sortDirection.direction === 'asc' ? '▲' : '▼')}
+                                        </th>
+                                        <th onClick={() => handleSort('mass')} style={{ cursor: 'pointer' }}>
+                                            Mass {sortDirection.key === 'mass' && (sortDirection.direction === 'asc' ? '▲' : '▼')}
+                                        </th>
+                                        <th onClick={() => handleSort('height')} style={{ cursor: 'pointer' }}>
+                                            Height {sortDirection.key === 'height' && (sortDirection.direction === 'asc' ? '▲' : '▼')}
+                                        </th>
+                                        <th onClick={() => handleSort('hair_color')} style={{ cursor: 'pointer' }}>
+                                            Hair Color {sortDirection.key === 'hair_color' && (sortDirection.direction === 'asc' ? '▲' : '▼')}
+                                        </th>
+                                        <th onClick={() => handleSort('skin_color')} style={{ cursor: 'pointer' }}>
+                                            Skin Color {sortDirection.key === 'skin_color' && (sortDirection.direction === 'asc' ? '▲' : '▼')}
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
