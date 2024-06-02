@@ -62,7 +62,7 @@ const Login = () => {
                                         onFocus={() => setTouched({ ...touched, password: true })}
                                     />
                                 </FormGroup>
-                                {(touched.username && !username || touched.password && !password) && (
+                                {((touched.username && !username) || (touched.password && !password)) && (
                                     <p className="text-danger">{error}</p>
                                 )}
                                 <div className={styles['button-container']}>
