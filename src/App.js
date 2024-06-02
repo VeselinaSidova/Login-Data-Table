@@ -1,23 +1,21 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import './App.css';
-
-import Login from './components/Login/Login';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import DataView from './components/DataView/DataView';
+import Login from './components/Login/Login';
 
-const App = () => {
+function App() {
     return (
         <Router>
-            <div className="App">
-                <main id="main-content">
-                    <Routes>
-                        <Route path="/" element={<Login />} />
-                        <Route path="/table" element={<DataView />} />
-                    </Routes>
-                </main>
-            </div>
+            <AuthProvider>
+                <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/table" element={<DataView />} />
+                    <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
+            </AuthProvider>
         </Router>
     );
-};
+}
 
 export default App;
