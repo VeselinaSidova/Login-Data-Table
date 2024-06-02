@@ -31,7 +31,7 @@ const Table = () => {
                 }
 
                 setData(allPeople);
-                setOriginalData(allPeople); // Store original data
+                setOriginalData(allPeople);
                 setLoading(false);
             } catch (error) {
                 setError(error);
@@ -46,6 +46,7 @@ const Table = () => {
         setCurrentPage(1);
     }, [searchQuery]);
 
+    // Sorting logic
     const handleSort = (key) => {
         const sortedData = [...data].sort((a, b) => {
             if (key === 'mass' || key === 'height') {
@@ -67,6 +68,7 @@ const Table = () => {
         setCurrentPage(1);
     };
 
+    // Reset table
     const handleReset = () => {
         setData(originalData);
         setSearchQuery('');
@@ -74,6 +76,7 @@ const Table = () => {
         setCurrentPage(1);
     };
 
+    // Search logic
     const filteredData = data.filter(person =>
         person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         person.mass.toLowerCase().includes(searchQuery.toLowerCase()) ||
