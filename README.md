@@ -25,7 +25,7 @@ This project is a simple React-based application that displays a list of Star Wa
    git clone https://github.com/your-username/star-wars-characters-app.git
 2. Navigate to the project directory:
    ```bash
-   cd login-data-table
+   cd star-wars-characters-app
 3. Install dependencies:
    ```bash
    npm install
