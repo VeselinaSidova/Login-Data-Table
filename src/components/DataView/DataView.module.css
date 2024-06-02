@@ -16,13 +16,13 @@
     z-index: 1000;
 }
 
-.reset-button{
+.reset-button, .logout-button{
     background-color: #D8232A;
     border: #D8232A;
     font-weight: 500;
 }
 
-.reset-button:hover{
+.reset-button:hover, .logout-button:hover{
     background-color: #F72A2E;
     border: #F72A2E;
 }

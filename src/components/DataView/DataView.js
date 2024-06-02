@@ -1,11 +1,14 @@
-// DataView.js
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Pagination, FormControl, Container, Row, Col, Alert, Button } from 'react-bootstrap';
 import styles from './DataView.module.css';
 import Loader from '../Loader/Loader';
 import Table from '../Table/Table';
+import { useAuth } from '../../contexts/AuthContext';
 
 const DataView = () => {
+    const { isAuthenticated, logout } = useAuth();
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [originalData, setOriginalData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,6 +19,11 @@ const DataView = () => {
     const itemsPerPage = 10;
 
     useEffect(() => {
+        if (!isAuthenticated) {
+            navigate('/login');
+            return;
+        }
+
         const fetchAllPeople = async () => {
             try {
                 let allPeople = [];
@@ -41,7 +49,7 @@ const DataView = () => {
         };
 
         fetchAllPeople();
-    }, []);
+    }, [isAuthenticated, navigate]);
 
     useEffect(() => {
         setCurrentPage(1);
@@ -135,7 +143,7 @@ const DataView = () => {
                                 handleSort={handleSort}
                                 sortDirection={sortDirection}
                             />
-                            <Pagination className="justify-content-center mt-4">
+                            <Pagination className="justify-content-center mt-5">
                                 {Array.from({ length: totalPages }, (_, index) => (
                                     <Pagination.Item
                                         key={index + 1}
@@ -151,6 +159,16 @@ const DataView = () => {
                                     </Pagination.Item>
                                 ))}
                             </Pagination>
+                            <Row className="justify-content-center mt-4">
+                                <Col xs={12} className="text-center">
+                                    <Button
+                                        className={styles['logout-button']}
+                                        onClick={logout}
+                                    >
+                                        Logout
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </Container>
