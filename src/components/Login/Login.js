@@ -10,7 +10,8 @@ const Login = () => {
     const [error, setError] = useState('');
     const [touched, setTouched] = useState({ username: false, password: false });
 
-    const handleLogin = () => {
+    const handleLogin = (e) => {
+        e.preventDefault();
         if (!username || !password) {
             setError('Both fields are required.');
             return;
@@ -35,7 +36,7 @@ const Login = () => {
                     <Card>
                         <Card.Body>
                             <h3 className="text-center mb-4">Login</h3>
-                            <Form>
+                            <Form onSubmit={handleLogin}>
                                 <FormGroup>
                                     <Form.Label htmlFor="username">Username</Form.Label>
                                     <FormControl
@@ -67,8 +68,8 @@ const Login = () => {
                                 )}
                                 <div className={styles['button-container']}>
                                     <Button
+                                        type="submit"
                                         className={`btn btn-primary btn-block ${styles['btn-primary']}`}
-                                        onClick={handleLogin}
                                         disabled={!username || !password}
                                     >
                                         Login
