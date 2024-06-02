@@ -1,32 +1,5 @@
-.blur {
-    filter: blur(5px);
-    pointer-events: none; 
-}
-
-.loader-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.5); 
-    z-index: 1000;
-}
-
-.reset-button{
-    background-color: #D8232A;
-    border: #D8232A;
-    font-weight: 500;
-}
-
-.reset-button:hover{
-    background-color: #F72A2E;
-    border: #F72A2E;
-}
-
-.header-primary{
-    color: #0A3E93;
+.table-shadow {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
 }
