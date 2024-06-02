@@ -94,6 +94,11 @@ const Table = () => {
                                         key={index + 1}
                                         active={index + 1 === currentPage}
                                         onClick={() => handlePageChange(index + 1)}
+                                        linkStyle={{
+                                            backgroundColor: index + 1 === currentPage ? '#0A3E93' : 'transparent',
+                                            color: index + 1 === currentPage ? 'white' : '#0A3E93',
+                                            borderColor: index + 1 === currentPage ? '#0A3E93' : '#DEE2E6',
+                                        }}
                                     >
                                         {index + 1}
                                     </Pagination.Item>
@@ -103,7 +108,7 @@ const Table = () => {
                     </Row>
                 </Container>
             </div>
-        </div>
+        </div >
     );
 };
 
