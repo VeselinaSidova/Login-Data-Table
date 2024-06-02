@@ -21,7 +21,7 @@ const Table = () => {
                 while (nextPage) {
                     const response = await fetch(nextPage);
                     if (!response.ok) {
-                        throw new Error('An error occured!');
+                        throw new Error('An error occurred!');
                     }
                     const result = await response.json();
                     allPeople = allPeople.concat(result.results);
@@ -44,7 +44,11 @@ const Table = () => {
     }, [searchQuery]);
 
     const filteredData = data.filter(person =>
-        person.name.toLowerCase().includes(searchQuery.toLowerCase())
+        person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        person.mass.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        person.height.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        person.hair_color.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        person.skin_color.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -61,9 +65,8 @@ const Table = () => {
         <div>
             {loading && <Loader />}
             {error && (
-                <Alert variant="danger"
-                    className="text-center">
-                    An error occured: {error.message}
+                <Alert variant="danger" className="text-center">
+                    An error occurred: {error.message}
                 </Alert>
             )}
             <div className={loading ? styles.blur : ''}>
@@ -75,7 +78,7 @@ const Table = () => {
                                 <Col xs={12} md={6}>
                                     <FormControl
                                         type="text"
-                                        placeholder="Search by name"
+                                        placeholder="Search"
                                         value={searchQuery}
                                         onChange={e => setSearchQuery(e.target.value)}
                                     />
