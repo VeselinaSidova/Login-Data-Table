@@ -25,8 +25,8 @@ const TableComponent = ({ data, handleSort, sortDirection }) => (
             </tr>
         </thead>
         <tbody>
-            {data.map((person, index) => ( //using index since there is no ID in SWAPI but we do not modify data
-                <Person key={index} person={person} />
+            {data.map((person) => (
+                <Person key={person.url} person={person} />
             ))}
         </tbody>
     </BootstrapTable>
